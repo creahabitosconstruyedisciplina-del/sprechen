@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Deutsch A2 · Menschen</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F0FB;--surface:#FFF;--surface2:#F7F5FD;--border:#E4DFF8;
+  --purple:#5548C8;--purple-d:#3B2FA0;--purple-l:#ECEAFC;
+  --green:#16A34A;--green-bg:#DCFCE7;--red:#DC2626;--red-bg:#FEE2E2;
+  --amber:#D97706;--amber-bg:#FEF3C7;--blue:#2563EB;--blue-bg:#DBEAFE;
+  --text:#18182B;--t2:#5C5C80;--t3:#9494B8;
+  --r:14px;--rs:8px;--sh:0 2px 14px rgba(85,72,200,.11);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.app{max-width:480px;margin:0 auto;padding:14px 13px 88px}
+
+/* HEADER */
+.hdr{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.logo{width:42px;height:42px;border-radius:11px;background:var(--purple);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:15px;flex-shrink:0;box-shadow:0 4px 14px rgba(85,72,200,.38)}
+.hdr-title{font-size:17px;font-weight:900;color:var(--text)}
+.hdr-sub{font-size:12px;color:var(--t2);margin-top:1px}
+
+/* XP BAR */
+.xp-row{display:flex;justify-content:space-between;font-size:12px;color:var(--t2);margin-bottom:5px}
+.xp-bar{height:7px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--purple),#8B7CF8);border-radius:99px;width:0%;transition:width .6s ease}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.stat{background:var(--surface);border-radius:var(--r);padding:10px 6px;text-align:center;box-shadow:var(--sh)}
+.stat-n{font-size:21px;font-weight:900;color:var(--purple)}
+.stat-l{font-size:11px;color:var(--t2);margin-top:2px;line-height:1.3}
+
+/* NAV */
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:flex;z-index:200;max-width:480px;margin:0 auto}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 4px 13px;font-size:10px;font-weight:700;color:var(--t3);cursor:pointer;border:none;background:none;font-family:inherit;gap:2px;transition:color .2s}
+.nb .ic{font-size:20px}
+.nb.on{color:var(--purple)}
+
+/* SECTIONS */
+.sec{display:none}.sec.on{display:block}
+.sec-title{font-size:19px;font-weight:900;margin-bottom:14px;color:var(--text)}
+
+/* LESSON LIST */
+.lesson-list{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
+.lesson-card{background:var(--surface);border-radius:var(--r);padding:13px 15px;display:flex;align-items:center;gap:11px;box-shadow:var(--sh);border:2px solid transparent;cursor:pointer;transition:border-color .2s}
+.lesson-card.sel{border-color:var(--purple)}
+.lesson-card.locked{opacity:.5;cursor:default}
+.lc-ico{font-size:26px;flex-shrink:0}
+.lc-info{flex:1;min-width:0}
+.lc-num{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;font-weight:700}
+.lc-title{font-size:14px;font-weight:800;margin:2px 0}
+.lc-topic{font-size:12px;color:var(--t2)}
+.badge{font-size:11px;padding:4px 10px;border-radius:99px;font-weight:800;flex-shrink:0}
+.b-new{background:var(--purple-l);color:var(--purple)}
+.b-lock{background:var(--surface2);color:var(--t3)}
+.b-done{background:var(--green-bg);color:var(--green)}
+
+/* LESSON PANEL */
+.lesson-panel{display:none}
+.lesson-panel.on{display:block}
+.lp-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:var(--purple);cursor:pointer;margin-bottom:14px;border:none;background:none;font-family:inherit;padding:0}
+.step-tabs{display:flex;gap:0;background:var(--surface2);border-radius:var(--rs);padding:3px;margin-bottom:16px;border:1px solid var(--border)}
+.step-tab{flex:1;padding:8px 4px;font-size:12px;font-weight:800;color:var(--t3);cursor:pointer;border:none;background:none;border-radius:6px;font-family:inherit;text-align:center;transition:all .2s}
+.step-tab.on{background:var(--surface);color:var(--purple);box-shadow:0 1px 6px rgba(85,72,200,.15)}
+.step-content{display:none}.step-content.on{display:block}
+
+/* TEXT CARD */
+.text-card{background:var(--surface);border-radius:var(--r);padding:16px;box-shadow:var(--sh);margin-bottom:12px}
+.text-label{font-size:11px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.lesson-text{font-size:14px;line-height:1.8;color:var(--text)}
+.lesson-text .hl{color:var(--purple);font-weight:800}
+.comprehension{background:var(--surface2);border-radius:var(--rs);padding:12px 14px;margin-top:12px;border-left:3px solid var(--purple)}
+.comprehension p{font-size:13px;font-weight:700;color:var(--t2);margin-bottom:8px}
+.comp-q{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+
+/* VOCAB CARDS */
+.vocab-intro{font-size:13px;color:var(--t2);margin-bottom:12px}
+.vocab-set{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:16px}
+.vc{background:var(--surface);border-radius:var(--r);padding:13px 11px;text-align:center;cursor:pointer;box-shadow:var(--sh);border:2px solid transparent;min-height:86px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;transition:all .2s}
+.vc.flipped{background:var(--purple-l);border-color:var(--purple)}
+.vc-de{font-size:14px;font-weight:800;font-family:'Fira Mono',monospace;color:var(--text)}
+.vc-art{font-size:11px;color:var(--t3);font-weight:600}
+.vc-es{font-size:13px;font-weight:800;color:var(--purple);display:none}
+.vc.flipped .vc-es{display:block}
+.vc.flipped .vc-de{color:var(--purple-d)}
+.speak-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;background:var(--purple-l);border:1.5px solid var(--purple);border-radius:99px;color:var(--purple);font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;transition:all .15s;margin-top:2px}
+.speak-btn:hover{background:var(--purple);color:#fff}
+.speak-btn.sp{background:var(--purple);color:#fff;animation:pulse .7s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+/* VOCAB EXERCISES */
+.ex-box{background:var(--surface);border-radius:var(--r);padding:16px;margin-bottom:11px;box-shadow:var(--sh)}
+.ex-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.ex-type{font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px}
+.ex-xp{font-size:12px;font-weight:800;color:var(--purple);background:var(--purple-l);padding:3px 9px;border-radius:99px}
+.ex-q{font-size:14px;font-weight:700;color:var(--text);margin-bottom:13px;line-height:1.5}
+.ex-q em{color:var(--purple);font-style:normal;font-weight:900}
+
+/* OPTIONS */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{padding:12px 14px;border:2px solid var(--border);border-radius:var(--rs);cursor:pointer;font-size:14px;font-weight:700;color:var(--text);background:var(--surface);text-align:left;font-family:inherit;line-height:1.4;transition:all .15s;min-height:44px}
+.opt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-l)}
+.opt.ok{background:var(--green-bg);border-color:var(--green);color:#14532D}
+.opt.ko{background:var(--red-bg);border-color:var(--red);color:#7F1D1D}
+
+/* FEEDBACK */
+.fb{font-size:13px;font-weight:700;margin-top:9px;padding:10px 12px;border-radius:var(--rs);line-height:1.5;display:none}
+.fb.ok{background:var(--green-bg);color:#14532D}
+.fb.ko{background:var(--red-bg);color:#7F1D1D}
+.fb.info{background:var(--amber-bg);color:#78350F}
+
+/* FILL */
+.fill-wrap{font-size:14px;font-weight:700;line-height:2.4;display:flex;flex-wrap:wrap;align-items:center;gap:5px}
+input.fi{border:2px solid var(--border);border-radius:var(--rs);padding:6px 10px;font-size:15px;font-weight:800;font-family:'Fira Mono',monospace;background:var(--surface2);color:var(--text);text-align:center;height:38px;transition:border-color .2s}
+input.fi:focus{outline:none;border-color:var(--purple);background:var(--purple-l)}
+input.fi.ok{border-color:var(--green);background:var(--green-bg);color:#14532D}
+input.fi.ko{border-color:var(--red);background:var(--red-bg);color:#7F1D1D}
+
+/* MATCH */
+.match-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.match-col{display:flex;flex-direction:column;gap:6px}
+.match-chip{padding:10px 12px;border:2px solid var(--border);border-radius:var(--rs);font-size:13px;font-weight:800;text-align:center;cursor:pointer;font-family:'Fira Mono',monospace;transition:all .2s;background:var(--surface);color:var(--text)}
+.match-chip.sel{background:var(--purple);border-color:var(--purple-d);color:#fff}
+.match-chip.matched{background:var(--green-bg);border-color:var(--green);color:#14532D;cursor:default}
+.match-chip.wrong-flash{background:var(--red-bg);border-color:var(--red)}
+
+/* WORD ORDER */
+.chips-pool{display:flex;flex-wrap:wrap;gap:7px;min-height:40px;padding:8px;background:var(--surface2);border-radius:var(--rs);border:2px dashed var(--border);margin-bottom:8px}
+.chips-ans{display:flex;flex-wrap:wrap;gap:7px;min-height:40px;padding:8px;background:var(--purple-l);border-radius:var(--rs);border:2px dashed var(--purple)}
+.chip{padding:7px 12px;border:2px solid var(--border);border-radius:99px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Fira Mono',monospace;color:var(--text);background:var(--surface);transition:all .15s;user-select:none}
+.chip:hover{border-color:var(--purple);background:var(--purple-l)}
+.chip.gone{opacity:.25;pointer-events:none}
+.chip.placed{background:var(--purple);border-color:var(--purple-d);color:#fff}
+
+/* GRAMMAR */
+.gram-tag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--purple);background:var(--purple-l);padding:3px 10px;border-radius:99px;display:inline-block;margin-bottom:10px}
+.gram-rule{font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:10px}
+.gram-rule strong{color:var(--text)}
+.g-hl{color:var(--purple);font-weight:900}
+.g-ex{background:var(--surface2);border-left:3px solid var(--purple);border-radius:0 var(--rs) var(--rs) 0;padding:10px 13px;margin:7px 0;font-size:14px;font-family:'Fira Mono',monospace;color:var(--text);line-height:1.6}
+.g-ex .tr{font-family:'Nunito',sans-serif;font-size:12px;color:var(--t2);display:block;margin-top:2px}
+.gtable{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px;overflow:hidden;border-radius:var(--rs)}
+.gtable td,.gtable th{padding:8px 10px;border:1px solid var(--border);text-align:center}
+.gtable th{background:var(--purple-l);color:var(--purple);font-weight:900}
+.gtable tr:nth-child(even) td{background:var(--surface2)}
+
+/* BTN */
+.btn{padding:13px 18px;border:none;border-radius:var(--rs);cursor:pointer;font-size:14px;font-family:inherit;font-weight:800;min-height:44px;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:10px}
+.btn-p{background:var(--purple);color:#fff;box-shadow:0 4px 12px rgba(85,72,200,.3)}
+.btn-p:active{background:var(--purple-d);transform:scale(.97)}
+.btn-s{background:var(--surface2);color:var(--purple);border:2px solid var(--border)}
+
+/* CHAT */
+.chat-scenarios{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.sce-btn{padding:13px 14px;border:2px solid var(--border);border-radius:var(--rs);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;text-align:left;font-family:inherit;transition:all .15s}
+.sce-btn:hover{border-color:var(--purple);background:var(--purple-l)}
+.chat-area{background:var(--surface2);border-radius:var(--r);padding:12px;height:270px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;-webkit-overflow-scrolling:touch;margin-bottom:10px}
+.msg{max-width:88%;padding:11px 13px;border-radius:14px;font-size:14px;font-weight:600;line-height:1.5;white-space:pre-wrap}
+.msg-ai{background:var(--surface);border:1px solid var(--border);color:var(--text);align-self:flex-start}
+.msg-user{background:var(--purple);color:#fff;align-self:flex-end}
+.chat-row{display:flex;gap:7px}
+.chat-in{flex:1;padding:11px 13px;border:2px solid var(--border);border-radius:var(--rs);font-size:14px;font-weight:700;background:var(--surface);color:var(--text);font-family:inherit}
+.chat-in:focus{outline:none;border-color:var(--purple)}
+.chat-send{padding:0 15px;background:var(--purple);color:#fff;border:none;border-radius:var(--rs);cursor:pointer;font-size:17px;min-height:44px;min-width:48px}
+.chat-send:disabled{opacity:.5}
+.chat-err{font-size:12px;color:var(--red);margin-top:5px;text-align:center}
+
+/* TRANSLATE */
+.tr-hint{font-size:12px;color:var(--amber);background:var(--amber-bg);border-radius:var(--rs);padding:9px 12px;margin-bottom:12px;line-height:1.5}
+.tr-item{margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:14px}
+.tr-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.tr-es{font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px}
+.tr-es::before{content:'🇪🇸 ';font-size:13px}
+textarea.tr-in{width:100%;padding:10px 12px;border:2px solid var(--border);border-radius:var(--rs);font-size:14px;font-weight:700;font-family:'Nunito',sans-serif;background:var(--surface2);color:var(--text);resize:none;height:60px;transition:border-color .2s}
+textarea.tr-in:focus{outline:none;border-color:var(--purple);background:var(--purple-l)}
+textarea.tr-in.ok{border-color:var(--green);background:var(--green-bg)}
+textarea.tr-in.ko{border-color:var(--red);background:var(--red-bg)}
+.tr-fb{font-size:12px;margin-top:5px;padding:7px 10px;border-radius:var(--rs);line-height:1.5;display:none}
+.tr-fb.ok{background:var(--green-bg);color:#14532D}
+.tr-fb.ko{background:var(--red-bg);color:#7F1D1D}
+.tr-fb.ai{background:var(--blue-bg);color:#1E3A8A}
+.tr-correct{font-size:12px;color:var(--t2);margin-top:3px}
+.tr-correct span{font-family:'Fira Mono',monospace;color:var(--purple);font-weight:700}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="hdr">
+  <div class="logo">A2</div>
+  <div>
+    <div class="hdr-title">Deutsch A2 · Menschen</div>
+    <div class="hdr-sub">Nivel A2 · Hueber Verlag</div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-n" id="s-xp">0</div><div class="stat-l">Puntos XP</div></div>
+  <div class="stat"><div class="stat-n" id="s-les">0</div><div class="stat-l">Lecciones</div></div>
+  <div class="stat"><div class="stat-n" id="s-voc">0</div><div class="stat-l">Vocabulario</div></div>
+</div>
+<div class="xp-row"><span>Progreso A2</span><span id="xp-pct">0%</span></div>
+<div class="xp-bar"><div class="xp-fill" id="xpbar"></div></div>
+
+<!-- =========== LECCIONES =========== -->
+<div id="sec-les" class="sec on">
+  <div id="lesson-list-view">
+    <div class="sec-title">📚 Lecciones</div>
+    <div class="lesson-list" id="ll"></div>
+  </div>
+  <div id="lesson-panel" class="lesson-panel"></div>
+</div>
+
+<!-- =========== CHAT =========== -->
+<div id="sec-chat" class="sec">
+  <div class="sec-title">🤖 Práctica con IA</div>
+  <div class="chat-scenarios" id="sce-btns">
+    <div style="font-size:13px;color:var(--t2);margin-bottom:2px">Elige un escenario:</div>
+    <button class="sce-btn" onclick="setScenario('casa')">🏠 Mi casa — Meine Wohnung</button>
+    <button class="sce-btn" onclick="setScenario('arzt')">🏥 Beim Arzt — En el médico</button>
+    <button class="sce-btn" onclick="setScenario('einkaufen')">🛒 Im Supermarkt — De compras</button>
+    <button class="sce-btn" onclick="setScenario('arbeit')">💼 Mein Beruf — Mi trabajo</button>
+    <button class="sce-btn" onclick="setScenario('libre')">✏️ Corrección libre</button>
+  </div>
+  <div class="chat-area" id="chat-area">
+    <div class="msg msg-ai">Hallo! 👋 Soy tu profesor de alemán A2. Elige un escenario o escríbeme directamente. Te corrijo en español y practicamos juntos.</div>
+  </div>
+  <div id="chat-err" class="chat-err" style="display:none"></div>
+  <div class="chat-row">
+    <input class="chat-in" id="chat-in" placeholder="Schreib auf Deutsch…" onkeydown="if(event.key==='Enter')sendMsg()"/>
+    <button class="chat-send" id="send-btn" onclick="sendMsg()">➤</button>
+  </div>
+  <div style="font-size:11px;color:var(--t3);margin-top:7px;text-align:center">Requiere conexión a internet</div>
+</div>
+
+</div><!-- .app -->
+
+<!-- NAV -->
+<nav class="nav" style="left:50%;transform:translateX(-50%);width:100%;max-width:480px">
+  <button class="nb on" onclick="showSec('les',this)"><span class="ic">📚</span>Lecciones</button>
+  <button class="nb" onclick="showSec('chat',this)"><span class="ic">🤖</span>Práctica IA</button>
+</nav>
+
+<script>
+// =========== STATE ===========
+let xp=0, lessDone=0, vocSeen=0;
+const unlocked=[true,false,false,false,false,false];
+
+function addXP(n){
+  xp+=n;
+  document.getElementById('s-xp').textContent=xp;
+  const p=Math.min(100,Math.round(xp/2));
+  document.getElementById('xpbar').style.width=p+'%';
+  document.getElementById('xp-pct').textContent=p+'%';
+}
+function incVoc(){vocSeen++;document.getElementById('s-voc').textContent=vocSeen;}
+
+// =========== NAV ===========
+function showSec(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('sec-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+
+// =========== LESSONS DATA ===========
+const LESSONS=[
+  {
+    icon:'🏠',num:'Lección 1',title:'Meine Wohnung',topic:'El hogar · artículo Dativ',
+    text:`Lena wohnt in einer <span class="hl">Wohnung</span> in Wien. Die Wohnung hat drei Zimmer: ein <span class="hl">Wohnzimmer</span>, ein <span class="hl">Schlafzimmer</span> und eine <span class="hl">Küche</span>. Das <span class="hl">Badezimmer</span> ist klein, aber die Küche ist sehr groß. Im Wohnzimmer gibt es ein <span class="hl">Sofa</span> und einen großen Tisch. Lena wohnt gern hier, weil die Wohnung hell und ruhig ist.`,
+    compQ:[
+      {q:'¿Cuántas habitaciones tiene el piso de Lena?',opts:['Dos','Tres','Cuatro'],ok:1},
+      {q:'¿Cómo es la cocina?',opts:['Pequeña','Grande','Normal'],ok:1}
+    ],
+    vocab:[
+      {de:'die Wohnung',art:'f',es:'el piso / apartamento'},
+      {de:'das Zimmer',art:'n',es:'la habitación'},
+      {de:'die Küche',art:'f',es:'la cocina'},
+      {de:'das Wohnzimmer',art:'n',es:'el salón'},
+      {de:'das Schlafzimmer',art:'n',es:'el dormitorio'},
+      {de:'das Badezimmer',art:'n',es:'el baño'},
+      {de:'das Sofa',art:'n',es:'el sofá'},
+      {de:'die Wand',art:'f',es:'la pared'}
+    ],
+    vocExs:[
+      {type:'mcq',q:'¿Cómo se dice «el dormitorio» en alemán?',opts:['das Wohnzimmer','das Schlafzimmer','das Badezimmer','die Küche'],ok:1,xp:10,
+       fb_ok:'✅ ¡Correcto! das Schlafzimmer = el dormitorio.',fb_ko:'❌ Es "das Schlafzimmer". Schlafen = dormir.'},
+      {type:'fill',q:'Completa con la palabra correcta:',
+       sentence:['Im',{blank:'Wohnzimmer',w:100},'gibt es ein Sofa.'],
+       xp:10,fb_ok:'✅ ¡Perfecto! "im Wohnzimmer" = en el salón.',fb_ko:'❌ La respuesta es "Wohnzimmer". Wohn- viene de "wohnen" (vivir).'},
+      {type:'match',q:'Une cada palabra alemana con su traducción:',
+       pairs:[['die Küche','la cocina'],['das Badezimmer','el baño'],['die Wand','la pared'],['das Sofa','el sofá']],xp:15,
+       fb_ok:'✅ ¡Todas correctas!',fb_ko:'❌ Intenta de nuevo.'},
+      {type:'order',q:'Ordena la frase:',correct:'Die Wohnung hat drei Zimmer .',
+       words:['Die','Wohnung','hat','drei','Zimmer','.'],xp:15,
+       fb_ok:'✅ ¡Perfecto! "Die Wohnung hat drei Zimmer." — sujeto + verbo + objeto.',
+       fb_ko:'❌ Correcto: "Die Wohnung hat drei Zimmer." El verbo va en la 2ª posición.'}
+    ],
+    gram:{
+      tag:'Grammatik · El artículo en Dativ',
+      rule:`El <strong>Dativ</strong> se usa para indicar <strong>ubicación</strong> (¿dónde?) después de preposiciones como <span class="g-hl">in, an, auf, bei, nach, von, zu, aus</span>.<br><br>La pregunta clave es: <span class="g-hl">Wo? ¿Dónde?</span>`,
+      examples:[
+        {de:'Ich bin <span class="g-hl">in der</span> Küche.',tr:'Estoy en la cocina.'},
+        {de:'Das Buch liegt <span class="g-hl">auf dem</span> Tisch.',tr:'El libro está sobre la mesa.'},
+        {de:'Er wohnt <span class="g-hl">in einem</span> großen Haus.',tr:'Vive en una casa grande.'}
+      ],
+      table:{heads:['Artikel','Maskulin','Neutrum','Feminin'],rows:[
+        ['bestimmt','<span class="g-hl">dem</span>','<span class="g-hl">dem</span>','<span class="g-hl">der</span>'],
+        ['unbestimmt','<span class="g-hl">einem</span>','<span class="g-hl">einem</span>','<span class="g-hl">einer</span>']
+      ]},
+      tip:'💡 Truco: en Dativ masculino y neutro → <strong>dem/einem</strong>. Femenino → <strong>der/einer</strong>.',
+      exs:[
+        {type:'mcq',q:'¿Cuál es el artículo correcto? — "Das Buch liegt ___ Tisch." (der Tisch = masc.)',
+         opts:['dem','der','einen','ein'],ok:0,xp:10,
+         fb_ok:'✅ ¡Correcto! "der Tisch" → Dativ masc. → "dem".',
+         fb_ko:'❌ "der Tisch" es masculino. En Dativ masculino el artículo es "dem".'},
+        {type:'fill',q:'Completa con el artículo Dativ correcto:',
+         sentence:['Ich bin in',{blank:'der',w:60},'Küche.'],
+         xp:10,fb_ok:'✅ ¡Bien! die Küche (fem.) → in der Küche.',fb_ko:'❌ die Küche es femenino → Dativ: "der" Küche.'},
+        {type:'fill2',q:'Elige: haben o sein para el Perfekt:',
+         items:[
+           {pre:'Wir',blank:'haben',w:70,suf:'eine Wohnung gekauft.',hint:'kaufen → haben'},
+           {pre:'Er',blank:'ist',w:55,suf:'nach Wien gefahren.',hint:'fahren → sein'}
+         ],xp:15,
+         fb_ok:'✅ ¡Perfecto! kaufen → haben · fahren → sein (movimiento).',
+         fb_ko:'❌ kaufen usa "haben". fahren usa "sein" (verbo de movimiento).'},
+        {type:'translate',xp:30,
+         hint:'Usa: in der (fem.) / in dem→im (masc./neut.) / in einem (indef. neut.) / in einer (indef. fem.)',
+         sentences:[
+           {es:'Estoy en la cocina.',de:'Ich bin in der Küche.'},
+           {es:'El libro está sobre la mesa.',de:'Das Buch liegt auf dem Tisch.'},
+           {es:'Ella vive en un piso pequeño.',de:'Sie wohnt in einer kleinen Wohnung.'},
+           {es:'El sofá está en el salón.',de:'Das Sofa ist im Wohnzimmer.'},
+           {es:'Dormimos en el dormitorio.',de:'Wir schlafen im Schlafzimmer.'}
+         ]}
+      ]
+    }
+  },
+  {
+    icon:'💼',num:'Lección 2',title:'Mein Beruf',topic:'El trabajo · Modalverben',locked:true,
+    text:`Thomas ist <span class="hl">Ingenieur</span> und arbeitet in einem großen <span class="hl">Büro</span> in München. Er muss jeden Tag früh aufstehen, weil er weit von der <span class="hl">Arbeit</span> wohnt. Thomas will eine neue <span class="hl">Stelle</span> finden, weil er mehr <span class="hl">Gehalt</span> möchte. Sein <span class="hl">Chef</span> ist nett, aber die Arbeit ist sehr stressig. Thomas soll nächste Woche eine wichtige Präsentation machen.`,
+    compQ:[
+      {q:'¿Dónde trabaja Thomas?',opts:['En una fábrica','En una oficina','En casa'],ok:1},
+      {q:'¿Qué quiere Thomas?',opts:['Un trabajo nuevo','Más vacaciones','Un coche nuevo'],ok:0}
+    ],
+    vocab:[
+      {de:'der Beruf',art:'m',es:'la profesión'},
+      {de:'die Arbeit',art:'f',es:'el trabajo'},
+      {de:'das Büro',art:'n',es:'la oficina'},
+      {de:'die Stelle',art:'f',es:'el puesto de trabajo'},
+      {de:'das Gehalt',art:'n',es:'el salario'},
+      {de:'der Chef',art:'m',es:'el jefe'},
+      {de:'der Ingenieur',art:'m',es:'el ingeniero'},
+      {de:'aufstehen',art:'v',es:'levantarse'}
+    ],
+    vocExs:[
+      {type:'mcq',q:'¿Cómo se dice «el salario»?',opts:['das Büro','die Stelle','das Gehalt','der Chef'],ok:2,xp:10,
+       fb_ok:'✅ ¡Correcto! das Gehalt = el salario.',fb_ko:'❌ Es "das Gehalt". Gehalt = salario.'},
+      {type:'fill',q:'Completa:',sentence:['Thomas arbeitet in einem',{blank:'Büro',w:70},'.'],
+       xp:10,fb_ok:'✅ das Büro = la oficina.',fb_ko:'❌ La respuesta es "Büro".'},
+      {type:'match',q:'Une cada palabra con su traducción:',
+       pairs:[['der Beruf','la profesión'],['die Stelle','el puesto'],['aufstehen','levantarse'],['der Chef','el jefe']],xp:15,
+       fb_ok:'✅ ¡Todas bien!',fb_ko:'❌ Inténtalo de nuevo.'},
+      {type:'order',q:'Ordena la frase:',correct:'Thomas will eine neue Stelle finden .',
+       words:['Thomas','will','eine','neue','Stelle','finden','.'],xp:15,
+       fb_ok:'✅ "Thomas will eine neue Stelle finden." — Modal en 2ª pos., infinitivo al final.',
+       fb_ko:'❌ Correcto: "Thomas will eine neue Stelle finden." El infinitivo siempre va al final.'}
+    ],
+    gram:{
+      tag:'Grammatik · Modalverben: wollen & sollen',
+      rule:`Los <strong>verbos modales</strong> se colocan en la <strong>2ª posición</strong> y el infinitivo va siempre <strong>al final</strong> de la frase.<br><br><span class="g-hl">wollen</span> = querer (deseo propio) · <span class="g-hl">sollen</span> = deber (orden de otra persona)`,
+      examples:[
+        {de:'Ich <span class="g-hl">will</span> eine neue Stelle <span class="g-hl">finden</span>.',tr:'Quiero encontrar un nuevo trabajo.'},
+        {de:'Du <span class="g-hl">sollst</span> um 8 Uhr hier <span class="g-hl">sein</span>.',tr:'Debes estar aquí a las 8 (te lo pide alguien).'}
+      ],
+      table:{heads:['Pronomen','wollen','sollen','müssen'],rows:[
+        ['ich','<span class="g-hl">will</span>','<span class="g-hl">soll</span>','muss'],
+        ['du','willst','sollst','musst'],
+        ['er/sie','will','soll','muss'],
+        ['wir','wollen','sollen','müssen'],
+        ['sie/Sie','wollen','sollen','müssen']
+      ]},
+      tip:'💡 wollen = yo quiero · sollen = alguien me lo pide',
+      exs:[
+        {type:'mcq',q:'¿Cuál es la frase correcta? (Ella quiere trabajar más)',
+         opts:['Sie will mehr arbeiten.','Sie arbeiten will mehr.','Sie mehr will arbeiten.','Mehr sie will arbeiten.'],ok:0,xp:10,
+         fb_ok:'✅ ¡Correcto! Modal (2ª pos.) + ... + infinitivo (final).',
+         fb_ko:'❌ Correcto: "Sie will mehr arbeiten." Modal siempre en 2ª posición.'},
+        {type:'fill',q:'Completa con wollen o sollen:',
+         sentence:['Der Chef sagt: "Du',{blank:'sollst',w:80},'früh kommen."'],
+         xp:10,fb_ok:'✅ Exacto. "sollen" = alguien te lo ordena.',fb_ko:'❌ Aquí el jefe da una orden → "sollst".'},
+        {type:'translate',xp:30,
+         hint:'Recuerda: modal en 2ª posición, infinitivo al final. wollen=querer, sollen=deber (orden ajena), müssen=tener que.',
+         sentences:[
+           {es:'Quiero encontrar un trabajo nuevo.',de:'Ich will eine neue Stelle finden.'},
+           {es:'Ella debe llegar a las ocho.',de:'Sie soll um acht Uhr ankommen.'},
+           {es:'Nosotros queremos ganar más dinero.',de:'Wir wollen mehr Geld verdienen.'},
+           {es:'¿Tienes que trabajar hoy?',de:'Musst du heute arbeiten?'},
+           {es:'Él quiere hablar con el jefe.',de:'Er will mit dem Chef sprechen.'}
+         ]}
+      ]
+    }
+  },
+  {
+    icon:'🛒',num:'Lección 3',title:'Im Supermarkt',topic:'De compras · Akkusativ',locked:true,
+    text:`Anna geht jeden Samstag in den <span class="hl">Supermarkt</span>. Sie kauft <span class="hl">Obst</span>, <span class="hl">Gemüse</span> und manchmal auch <span class="hl">Fleisch</span>. Heute braucht sie einen <span class="hl">Käse</span> und eine <span class="hl">Flasche</span> Öl. An der <span class="hl">Kasse</span> bezahlt sie mit der Karte. Die <span class="hl">Preise</span> im Supermarkt sind nicht so teuer. Für das Abendessen kauft sie auch <span class="hl">Nudeln</span>.`,
+    compQ:[
+      {q:'¿Cuándo va Anna al supermercado?',opts:['Cada día','Los sábados','Los domingos'],ok:1},
+      {q:'¿Cómo paga Anna?',opts:['En efectivo','Con tarjeta','Con cheque'],ok:1}
+    ],
+    vocab:[
+      {de:'das Obst',art:'n',es:'la fruta'},
+      {de:'das Gemüse',art:'n',es:'la verdura'},
+      {de:'das Fleisch',art:'n',es:'la carne'},
+      {de:'der Käse',art:'m',es:'el queso'},
+      {de:'die Flasche',art:'f',es:'la botella'},
+      {de:'die Kasse',art:'f',es:'la caja (de pago)'},
+      {de:'der Preis',art:'m',es:'el precio'},
+      {de:'die Nudeln',art:'pl',es:'los fideos / pasta'}
+    ],
+    vocExs:[
+      {type:'mcq',q:'¿Cómo se dice «la verdura»?',opts:['das Obst','das Fleisch','das Gemüse','der Käse'],ok:2,xp:10,
+       fb_ok:'✅ das Gemüse = la verdura.',fb_ko:'❌ Es "das Gemüse". Gemüse = verdura.'},
+      {type:'fill',q:'Completa:',sentence:['An der',{blank:'Kasse',w:75},'bezahlt sie mit der Karte.'],
+       xp:10,fb_ok:'✅ die Kasse = la caja.',fb_ko:'❌ La respuesta es "Kasse".'},
+      {type:'match',q:'Une:',
+       pairs:[['das Obst','la fruta'],['die Flasche','la botella'],['der Preis','el precio'],['das Fleisch','la carne']],xp:15,
+       fb_ok:'✅ ¡Bien!',fb_ko:'❌ Inténtalo.'},
+      {type:'order',q:'Ordena:',correct:'Sie kauft einen Käse und eine Flasche Öl .',
+       words:['Sie','kauft','einen','Käse','und','eine','Flasche','Öl','.'],xp:15,
+       fb_ok:'✅ ¡Correcto!',fb_ko:'❌ Correcto: "Sie kauft einen Käse und eine Flasche Öl."'}
+    ],
+    gram:{
+      tag:'Grammatik · El caso Akkusativ',
+      rule:`El <strong>Akkusativ</strong> se usa para el <strong>objeto directo</strong> (¿qué? ¿a quién?). Solo cambia el artículo <strong>masculino</strong>:<br><span class="g-hl">der → den · ein → einen · kein → keinen</span>`,
+      examples:[
+        {de:'Ich kaufe <span class="g-hl">einen</span> Käse.',tr:'Compro un queso. (der Käse → einen Käse)'},
+        {de:'Sie hat <span class="g-hl">keinen</span> Hunger.',tr:'No tiene hambre.'},
+        {de:'Ich sehe <span class="g-hl">den</span> Mann.',tr:'Veo al hombre.'}
+      ],
+      table:{heads:['Artikel','Maskulin','Neutrum','Feminin'],rows:[
+        ['bestimmt','<span class="g-hl">den</span>','das','die'],
+        ['unbestimmt','<span class="g-hl">einen</span>','ein','eine'],
+        ['Negation','<span class="g-hl">keinen</span>','kein','keine']
+      ]},
+      tip:'💡 Solo el masculino cambia en Akkusativ: der→den, ein→einen.',
+      exs:[
+        {type:'mcq',q:'¿Cuál es correcto? (Busco un supermercado)',
+         opts:['Ich suche einen Supermarkt.','Ich suche ein Supermarkt.','Ich suche der Supermarkt.','Ich suche dem Supermarkt.'],ok:0,xp:10,
+         fb_ok:'✅ der Supermarkt (masc.) → Akkusativ → einen.',
+         fb_ko:'❌ Supermarkt es masculino → Akkusativ: "einen Supermarkt".'},
+        {type:'fill',q:'Completa con el artículo correcto:',
+         sentence:['Ich kaufe',{blank:'einen',w:70},'Käse und eine Flasche Öl.'],
+         xp:10,fb_ok:'✅ der Käse → Akkusativ masc. → einen.',fb_ko:'❌ Käse es masc. → Akkusativ: "einen".'},
+        {type:'translate',xp:30,
+         hint:'Solo cambia el masculino en Akkusativ: der→den, ein→einen. Neutro y femenino no cambian.',
+         sentences:[
+           {es:'Compro un queso y una botella de aceite.',de:'Ich kaufe einen Käse und eine Flasche Öl.'},
+           {es:'¿Ves al hombre allí?',de:'Siehst du den Mann dort?'},
+           {es:'Ella no tiene hambre.',de:'Sie hat keinen Hunger.'},
+           {es:'Busco un supermercado.',de:'Ich suche einen Supermarkt.'},
+           {es:'Él come una manzana.',de:'Er isst einen Apfel.'}
+         ]}
+      ]
+    }
+  },
+  {
+    icon:'❤️',num:'Lección 4',title:'Beim Arzt',topic:'La salud · Körperteile',locked:true,
+    text:`Klaus hat <span class="hl">Kopfschmerzen</span> und fühlt sich nicht gut. Er geht zum <span class="hl">Arzt</span>. Der Arzt fragt: „Wo tut es weh?" Klaus sagt: „Mein <span class="hl">Kopf</span> und mein <span class="hl">Hals</span> tun weh. Ich habe auch <span class="hl">Fieber</span>." Der Arzt untersucht Klaus und schreibt ein <span class="hl">Rezept</span>. Klaus soll viel trinken, zu Hause bleiben und die <span class="hl">Tabletten</span> nehmen.`,
+    compQ:[
+      {q:'¿Qué le duele a Klaus?',opts:['El estómago','La cabeza y la garganta','La espalda'],ok:1},
+      {q:'¿Qué escribe el médico?',opts:['Un certificado','Una receta','Un informe'],ok:1}
+    ],
+    vocab:[
+      {de:'der Kopf',art:'m',es:'la cabeza'},
+      {de:'der Hals',art:'m',es:'la garganta / el cuello'},
+      {de:'das Fieber',art:'n',es:'la fiebre'},
+      {de:'die Tablette',art:'f',es:'la pastilla'},
+      {de:'das Rezept',art:'n',es:'la receta médica'},
+      {de:'der Arzt',art:'m',es:'el médico'},
+      {de:'die Schmerzen',art:'pl',es:'el dolor'},
+      {de:'wehtun',art:'v',es:'doler'}
+    ],
+    vocExs:[
+      {type:'mcq',q:'¿Cómo se dice «la fiebre»?',opts:['der Hals','das Fieber','die Tablette','der Kopf'],ok:1,xp:10,
+       fb_ok:'✅ das Fieber = la fiebre.',fb_ko:'❌ Es "das Fieber".'},
+      {type:'fill',q:'Completa:',sentence:['Der Arzt schreibt ein',{blank:'Rezept',w:75},'.'],
+       xp:10,fb_ok:'✅ das Rezept = la receta.',fb_ko:'❌ La respuesta es "Rezept".'},
+      {type:'match',q:'Une:',
+       pairs:[['der Kopf','la cabeza'],['wehtun','doler'],['die Schmerzen','el dolor'],['der Hals','la garganta']],xp:15,
+       fb_ok:'✅ ¡Bien!',fb_ko:'❌ Inténtalo.'},
+      {type:'order',q:'Ordena:',correct:'Mein Kopf und mein Hals tun weh .',
+       words:['Mein','Kopf','und','mein','Hals','tun','weh','.'],xp:15,
+       fb_ok:'✅ ¡Correcto! "Mein Kopf und mein Hals tun weh."',
+       fb_ko:'❌ Correcto: "Mein Kopf und mein Hals tun weh."'}
+    ],
+    gram:{
+      tag:'Grammatik · Das Perfekt',
+      rule:`El <strong>Perfekt</strong> es el tiempo pasado del alemán hablado. Se forma con:<br><span class="g-hl">haben / sein + Partizip II</span><br><br>📌 <strong>haben</strong>: mayoría de verbos (kaufen, arbeiten, essen…)<br>📌 <strong>sein</strong>: movimiento o cambio de estado (gehen, fahren, kommen, werden, sein…)`,
+      examples:[
+        {de:'Ich <span class="g-hl">habe</span> Tabletten ge<span class="g-hl">kauft</span>.',tr:'He comprado pastillas.'},
+        {de:'Er <span class="g-hl">ist</span> zum Arzt ge<span class="g-hl">gangen</span>.',tr:'Ha ido al médico.'},
+        {de:'Wir <span class="g-hl">haben</span> viel ge<span class="g-hl">trunken</span>.',tr:'Hemos bebido mucho.'}
+      ],
+      table:{heads:['Infinitiv','Partizip II','Hilfsverb'],rows:[
+        ['kaufen','ge<span class="g-hl">kauf</span>t','haben'],
+        ['trinken','ge<span class="g-hl">trunk</span>en','haben'],
+        ['gehen','ge<span class="g-hl">gang</span>en','sein'],
+        ['fahren','ge<span class="g-hl">fahr</span>en','sein'],
+        ['sein','ge<span class="g-hl">wes</span>en','sein']
+      ]},
+      tip:'💡 Si el verbo indica movimiento o cambio → sein. Los demás → haben.',
+      exs:[
+        {type:'mcq',q:'¿Qué auxiliar se usa con "gehen"?',
+         opts:['haben','sein','werden','sind'],ok:1,xp:10,
+         fb_ok:'✅ gehen usa "sein": Er ist gegangen.',
+         fb_ko:'❌ gehen es un verbo de movimiento → usa "sein".'},
+        {type:'fill',q:'Completa:',
+         sentence:['Klaus',{blank:'ist',w:50},'zum Arzt gegangen.'],
+         xp:10,fb_ok:'✅ gehen → sein. Klaus ist gegangen.',fb_ko:'❌ gehen usa "sein" → Klaus ist...'},
+        {type:'translate',xp:30,
+         hint:'Perfekt: haben/sein + Partizip II al final. Movimiento/cambio → sein. Resto → haben.',
+         sentences:[
+           {es:'He comprado pastillas en la farmacia.',de:'Ich habe Tabletten in der Apotheke gekauft.'},
+           {es:'Él ha ido al médico.',de:'Er ist zum Arzt gegangen.'},
+           {es:'Hemos bebido mucho agua.',de:'Wir haben viel Wasser getrunken.'},
+           {es:'¿Has tenido fiebre?',de:'Hast du Fieber gehabt?'},
+           {es:'Ella ha tomado las pastillas.',de:'Sie hat die Tabletten genommen.'}
+         ]}
+      ]
+    }
+  },
+  {
+    icon:'✈️',num:'Lección 5',title:'Urlaubsplanung',topic:'Vacaciones · Konjunktiv II',locked:true,
+    text:`Sofia und Marc planen ihren <span class="hl">Urlaub</span>. Marc <span class="hl">würde</span> gern nach Italien fahren, weil er das Meer liebt. Sofia möchte lieber in die <span class="hl">Berge</span> fahren. „Wir <span class="hl">könnten</span> auch nach Österreich fahren", sagt Sofia. „Das <span class="hl">wäre</span> eine gute Idee!", antwortet Marc. Sie buchen ein <span class="hl">Hotel</span> für zwei Wochen und kaufen die <span class="hl">Tickets</span> online.`,
+    compQ:[
+      {q:'¿Adónde quiere ir Marc?',opts:['A Austria','A Italia','A las montañas'],ok:1},
+      {q:'¿Cuánto tiempo dura el viaje?',opts:['Una semana','Dos semanas','Un mes'],ok:1}
+    ],
+    vocab:[
+      {de:'der Urlaub',art:'m',es:'las vacaciones'},
+      {de:'das Hotel',art:'n',es:'el hotel'},
+      {de:'das Ticket',art:'n',es:'el billete'},
+      {de:'die Berge',art:'pl',es:'las montañas'},
+      {de:'das Meer',art:'n',es:'el mar'},
+      {de:'buchen',art:'v',es:'reservar'},
+      {de:'planen',art:'v',es:'planear'},
+      {de:'die Reise',art:'f',es:'el viaje'}
+    ],
+    vocExs:[
+      {type:'mcq',q:'¿Cómo se dice «reservar»?',opts:['planen','buchen','fahren','finden'],ok:1,xp:10,
+       fb_ok:'✅ buchen = reservar.',fb_ko:'❌ Es "buchen".'},
+      {type:'fill',q:'Completa:',sentence:['Sie buchen ein',{blank:'Hotel',w:70},'für zwei Wochen.'],
+       xp:10,fb_ok:'✅ das Hotel = el hotel.',fb_ko:'❌ La respuesta es "Hotel".'},
+      {type:'match',q:'Une:',
+       pairs:[['die Berge','las montañas'],['das Meer','el mar'],['die Reise','el viaje'],['der Urlaub','las vacaciones']],xp:15,
+       fb_ok:'✅ ¡Todas bien!',fb_ko:'❌ Inténtalo.'},
+      {type:'order',q:'Ordena:',correct:'Wir könnten nach Österreich fahren .',
+       words:['Wir','könnten','nach','Österreich','fahren','.'],xp:15,
+       fb_ok:'✅ ¡Correcto! Modal (könnten) en 2ª pos., infinitivo al final.',
+       fb_ko:'❌ Correcto: "Wir könnten nach Österreich fahren."'}
+    ],
+    gram:{
+      tag:'Grammatik · Konjunktiv II',
+      rule:`El <strong>Konjunktiv II</strong> expresa deseos, posibilidades y peticiones amables. En A2 se usan principalmente:<br><span class="g-hl">würde + Infinitiv</span> y formas irregulares: <span class="g-hl">wäre, hätte, könnte, müsste, dürfte</span>`,
+      examples:[
+        {de:'Ich <span class="g-hl">würde</span> gern nach Italien <span class="g-hl">fahren</span>.',tr:'Me gustaría ir a Italia.'},
+        {de:'Das <span class="g-hl">wäre</span> schön!',tr:'¡Eso sería bonito!'},
+        {de:'Wir <span class="g-hl">könnten</span> ein Hotel buchen.',tr:'Podríamos reservar un hotel.'}
+      ],
+      table:{heads:['Infinitiv','Konjunktiv II','Significado'],rows:[
+        ['sein','<span class="g-hl">wäre</span>','sería'],
+        ['haben','<span class="g-hl">hätte</span>','tendría'],
+        ['können','<span class="g-hl">könnte</span>','podría'],
+        ['werden','<span class="g-hl">würde</span>','haría / iría…']
+      ]},
+      tip:'💡 "würde + Infinitiv" es la forma más segura y funciona para casi todo.',
+      exs:[
+        {type:'mcq',q:'¿Qué significa "Ich würde gern reisen"?',
+         opts:['Viajo mucho','Me gustaría viajar','He viajado','Voy a viajar'],ok:1,xp:10,
+         fb_ok:'✅ würde gern + Infinitiv = me gustaría + infinitivo.',
+         fb_ko:'❌ "würde gern" expresa deseo: me gustaría.'},
+        {type:'fill',q:'Completa con la forma correcta:',
+         sentence:['Das',{blank:'wäre',w:70},'eine gute Idee!'],
+         xp:10,fb_ok:'✅ wäre = sería (sein → wäre).',fb_ko:'❌ sein → Konjunktiv II: wäre.'},
+        {type:'translate',xp:30,
+         hint:'würde + Infinitiv para casi todo. Irregulares: wäre (sein), hätte (haben), könnte (können).',
+         sentences:[
+           {es:'Me gustaría ir a Italia.',de:'Ich würde gern nach Italien fahren.'},
+           {es:'Eso sería una buena idea.',de:'Das wäre eine gute Idee.'},
+           {es:'Podríamos reservar un hotel.',de:'Wir könnten ein Hotel buchen.'},
+           {es:'¿Te gustaría viajar a Austria?',de:'Würdest du gern nach Österreich reisen?'},
+           {es:'Él tendría dinero para las vacaciones.',de:'Er hätte Geld für den Urlaub.'}
+         ]}
+      ]
+    }
+  },
+  {
+    icon:'👫',num:'Lección 6',title:'Freunde und Familie',topic:'Familia · Possessivartikel',locked:true,
+    text:`Lisa erzählt über <span class="hl">ihre</span> Familie. „<span class="hl">Mein</span> Bruder heißt Felix und wohnt in Hamburg. <span class="hl">Meine</span> Eltern leben in einem kleinen Dorf. <span class="hl">Unser</span> Haus ist sehr alt, aber gemütlich. Ich besuche <span class="hl">meine</span> Familie jeden Monat. Felix hat eine Freundin. <span class="hl">Ihr</span> Name ist Emma. Wir sind alle sehr <span class="hl">eng</span> verbunden."`,
+    compQ:[
+      {q:'¿Dónde vive el hermano de Lisa?',opts:['En Berlín','En Hamburgo','En un pueblo'],ok:1},
+      {q:'¿Con qué frecuencia visita Lisa a su familia?',opts:['Cada semana','Cada mes','Cada año'],ok:1}
+    ],
+    vocab:[
+      {de:'der Bruder',art:'m',es:'el hermano'},
+      {de:'die Eltern',art:'pl',es:'los padres'},
+      {de:'das Dorf',art:'n',es:'el pueblo'},
+      {de:'besuchen',art:'v',es:'visitar'},
+      {de:'eng verbunden',art:'adj',es:'muy unidos'},
+      {de:'erzählen',art:'v',es:'contar / narrar'},
+      {de:'die Freundin',art:'f',es:'la amiga / novia'},
+      {de:'gemütlich',art:'adj',es:'acogedor/a'}
+    ],
+    vocExs:[
+      {type:'mcq',q:'¿Cómo se dice «el pueblo»?',opts:['die Eltern','der Bruder','das Dorf','besuchen'],ok:2,xp:10,
+       fb_ok:'✅ das Dorf = el pueblo.',fb_ko:'❌ Es "das Dorf".'},
+      {type:'fill',q:'Completa:',sentence:['Lisa',{blank:'besucht',w:85},'ihre Familie jeden Monat.'],
+       xp:10,fb_ok:'✅ besuchen = visitar. Lisa besucht...',fb_ko:'❌ La respuesta es "besucht" (er/sie/es).'},
+      {type:'match',q:'Une:',
+       pairs:[['der Bruder','el hermano'],['die Eltern','los padres'],['erzählen','contar'],['gemütlich','acogedor']],xp:15,
+       fb_ok:'✅ ¡Perfecto!',fb_ko:'❌ Inténtalo.'},
+      {type:'order',q:'Ordena:',correct:'Mein Bruder wohnt in Hamburg .',
+       words:['Mein','Bruder','wohnt','in','Hamburg','.'],xp:15,
+       fb_ok:'✅ "Mein Bruder wohnt in Hamburg."',fb_ko:'❌ Correcto: "Mein Bruder wohnt in Hamburg."'}
+    ],
+    gram:{
+      tag:'Grammatik · Possessivartikel',
+      rule:`Los <strong>Possessivartikel</strong> (mein, dein, sein, ihr…) indican posesión. Se declinan igual que los artículos indefinidos: <span class="g-hl">ein/eine</span>.`,
+      examples:[
+        {de:'<span class="g-hl">Mein</span> Bruder wohnt in Hamburg.',tr:'Mi hermano vive en Hamburgo. (der Bruder → mein)'},
+        {de:'<span class="g-hl">Meine</span> Eltern leben auf dem Land.',tr:'Mis padres viven en el campo. (die Eltern → meine)'},
+        {de:'<span class="g-hl">Unser</span> Haus ist gemütlich.',tr:'Nuestra casa es acogedora. (das Haus → unser)'}
+      ],
+      table:{heads:['','Maskulin','Neutrum','Feminin','Plural'],rows:[
+        ['ich (mein-)','<span class="g-hl">mein</span>','<span class="g-hl">mein</span>','<span class="g-hl">meine</span>','<span class="g-hl">meine</span>'],
+        ['du (dein-)','dein','dein','deine','deine'],
+        ['er/es (sein-)','sein','sein','seine','seine'],
+        ['sie (ihr-)','ihr','ihr','ihre','ihre'],
+        ['wir (unser-)','unser','unser','unsere','unsere']
+      ]},
+      tip:'💡 Feminin y plural siempre llevan -e: meine Schwester, meine Eltern.',
+      exs:[
+        {type:'mcq',q:'¿Cuál es correcto? (Mi hermana se llama Emma)',
+         opts:['Mein Schwester heißt Emma.','Meine Schwester heißt Emma.','Meinen Schwester heißt Emma.','Meim Schwester heißt Emma.'],ok:1,xp:10,
+         fb_ok:'✅ die Schwester (fem.) → meine Schwester.',
+         fb_ko:'❌ Schwester es femenino → "meine". Femenino siempre lleva -e.'},
+        {type:'fill',q:'Completa:',
+         sentence:[{blank:'Unser',w:70},'Haus ist sehr gemütlich.'],
+         xp:10,fb_ok:'✅ das Haus (neut.) → unser Haus.',fb_ko:'❌ das Haus es neutro → "unser" (sin -e).'},
+        {type:'translate',xp:30,
+         hint:'Possessivartikel: mein/dein/sein/ihr/unser. Femenino y plural llevan -e: meine, deine…',
+         sentences:[
+           {es:'Mi hermano vive en Hamburgo.',de:'Mein Bruder wohnt in Hamburg.'},
+           {es:'¿Cómo se llama tu amiga?',de:'Wie heißt deine Freundin?'},
+           {es:'Nuestra casa es muy acogedora.',de:'Unser Haus ist sehr gemütlich.'},
+           {es:'Sus padres viven en un pueblo.',de:'Ihre Eltern leben in einem Dorf.'},
+           {es:'Visito a mi familia cada mes.',de:'Ich besuche meine Familie jeden Monat.'}
+         ]}
+      ]
+    }
+  }
+];
+
+// =========== RENDER LESSON LIST ===========
+function renderLessonList(){
+  const ll=document.getElementById('ll');
+  ll.innerHTML='';
+  LESSONS.forEach((l,i)=>{
+    const div=document.createElement('div');
+    div.className='lesson-card'+(unlocked[i]?'':' locked');
+    const done=lessonDone[i];
+    div.innerHTML=`<div class="lc-ico">${l.icon}</div>
+      <div class="lc-info">
+        <div class="lc-num">${l.num}</div>
+        <div class="lc-title">${l.title}</div>
+        <div class="lc-topic">${l.topic}</div>
+      </div>
+      <span class="badge ${done?'b-done':unlocked[i]?'b-new':'b-lock'}">${done?'✅ Hecho':unlocked[i]?'Activo':'🔒'}</span>`;
+    if(unlocked[i]) div.onclick=()=>openLesson(i);
+    ll.appendChild(div);
+  });
+}
+const lessonDone=new Array(LESSONS.length).fill(false);
+
+// =========== OPEN LESSON ===========
+function openLesson(idx){
+  const L=LESSONS[idx];
+  document.getElementById('lesson-list-view').style.display='none';
+  const panel=document.getElementById('lesson-panel');
+  panel.classList.add('on');
+  panel.innerHTML=buildLessonPanel(L,idx);
+  // init step 0
+  showStep(0);
+  initVocab(L.vocab);
+  initVocExs(L.vocExs,idx);
+  initGram(L.gram,idx);
+}
+
+function buildLessonPanel(L,idx){
+  return `
+  <button class="lp-back" onclick="backToList()">← Volver a lecciones</button>
+  <div style="font-size:18px;font-weight:900;margin-bottom:12px">${L.icon} ${L.title}</div>
+  <div class="step-tabs">
+    <button class="step-tab on" onclick="showStep(0)">📖 Texto</button>
+    <button class="step-tab" onclick="showStep(1)">🃏 Vocabulario</button>
+    <button class="step-tab" onclick="showStep(2)">✏️ Gramática</button>
+  </div>
+  <!-- TEXTO -->
+  <div id="step-0" class="step-content on">
+    <div class="text-card">
+      <div class="text-label">📖 Lección · Lee el texto</div>
+      <div class="lesson-text">${L.text}</div>
+    </div>
+    <div class="ex-box">
+      <div class="ex-type">Comprensión lectora</div>
+      <div id="comp-qs"></div>
+      <div id="comp-fb" class="fb info" style="display:none"></div>
+      <div id="comp-next" style="display:none">
+        <button class="btn btn-p" onclick="showStep(1)">Ir a Vocabulario →</button>
+      </div>
+    </div>
+  </div>
+  <!-- VOCAB -->
+  <div id="step-1" class="step-content">
+    <div id="vocab-cards-area"></div>
+    <div id="vocab-ex-area"></div>
+    <div id="vocab-next" style="display:none">
+      <button class="btn btn-p" onclick="showStep(2)">Ir a Gramática →</button>
+    </div>
+  </div>
+  <!-- GRAM -->
+  <div id="step-2" class="step-content">
+    <div id="gram-area"></div>
+    <div id="gram-next" style="display:none">
+      <button class="btn btn-p" id="finish-btn" onclick="">🎉 ¡Completar lección!</button>
+    </div>
+  </div>`;
+}
+
+function showStep(n){
+  document.querySelectorAll('.step-tab').forEach((t,i)=>{t.classList.toggle('on',i===n)});
+  document.querySelectorAll('.step-content').forEach((c,i)=>{c.classList.toggle('on',i===n)});
+  if(n===0) initCompQ(LESSONS[currentLesson]);
+}
+
+let currentLesson=0;
+
+function openLesson(idx){
+  currentLesson=idx;
+  const L=LESSONS[idx];
+  document.getElementById('lesson-list-view').style.display='none';
+  const panel=document.getElementById('lesson-panel');
+  panel.classList.add('on');
+  panel.innerHTML=buildLessonPanel(L,idx);
+  showStep(0);
+  initCompQ(L);
+  initVocab(L.vocab);
+  initVocExs(L.vocExs,idx);
+  initGram(L.gram,idx);
+}
+
+function backToList(){
+  document.getElementById('lesson-list-view').style.display='block';
+  const panel=document.getElementById('lesson-panel');
+  panel.classList.remove('on');
+  panel.innerHTML='';
+  renderLessonList();
+}
+
+// =========== COMPRENSIÓN ===========
+function initCompQ(L){
+  const area=document.getElementById('comp-qs');
+  if(!area)return;
+  area.innerHTML='';
+  let answered=0;
+  L.compQ.forEach((cq,qi)=>{
+    const d=document.createElement('div');
+    d.style.marginBottom='12px';
+    d.innerHTML=`<div class="comp-q">${qi+1}. ${cq.q}</div>
+      <div class="opts" id="cq-${qi}">${cq.opts.map((o,oi)=>`<button class="opt" onclick="ansComp(${qi},${oi},${cq.ok})">${o}</button>`).join('')}</div>`;
+    area.appendChild(d);
+  });
+  window._compAnswered=0;
+  window._compTotal=L.compQ.length;
+}
+
+function ansComp(qi,oi,ok){
+  const opts=document.querySelectorAll(`#cq-${qi} .opt`);
+  opts.forEach(o=>o.disabled=true);
+  opts[oi].classList.add(oi===ok?'ok':'ko');
+  if(oi!==ok) opts[ok].classList.add('ok');
+  window._compAnswered=(window._compAnswered||0)+1;
+  if(window._compAnswered===window._compTotal){
+    const fb=document.getElementById('comp-fb');
+    fb.style.display='block';fb.textContent='✅ ¡Comprensión completada! Continúa con el vocabulario.';
+    document.getElementById('comp-next').style.display='block';
+    addXP(10);
+  }
+}
+
+// =========== VOCAB ===========
+let vocFlipped=0,vocTotal=0;
+function initVocab(vocab){
+  const area=document.getElementById('vocab-cards-area');
+  if(!area)return;
+  vocTotal=vocab.length; vocFlipped=0;
+  area.innerHTML=`<div class="vocab-intro">Toca cada tarjeta para ver la traducción. 🔊 para escuchar en alemán.</div>
+    <div class="vocab-set" id="vc-grid"></div>
+    <div id="vc-progress" style="font-size:12px;color:var(--t2);text-align:center;margin-bottom:14px">0 / ${vocab.length} vistas</div>`;
+  const grid=document.getElementById('vc-grid');
+  vocab.forEach(w=>{
+    const c=document.createElement('div');
+    c.className='vc';
+    c.innerHTML=`<div class="vc-de">${w.de}</div><div class="vc-art">${w.art}</div><div class="vc-es">${w.es}</div>
+      <button class="speak-btn" onclick="event.stopPropagation();speak('${w.de.replace(/'/g,"\\'")}',this)">🔊</button>`;
+    c.onclick=()=>{
+      if(!c.classList.contains('flipped')){
+        c.classList.add('flipped');
+        vocFlipped++;vocSeen++;
+        document.getElementById('s-voc').textContent=vocSeen;
+        document.getElementById('vc-progress').textContent=`${vocFlipped} / ${vocTotal} vistas`;
+        addXP(2);
+      } else c.classList.remove('flipped');
+    };
+    grid.appendChild(c);
+  });
+}
+
+// =========== VOCAB EXERCISES ===========
+function initVocExs(exs,lessonIdx){
+  const area=document.getElementById('vocab-ex-area');
+  if(!area)return;
+  area.innerHTML='';
+  exs.forEach((ex,i)=>{
+    const d=document.createElement('div');
+    d.className='ex-box'; d.id=`vex-${i}`;
+    if(ex.type==='mcq') d.innerHTML=buildMCQ(ex,`vex-${i}`,i===exs.length-1,lessonIdx,'v');
+    else if(ex.type==='fill') d.innerHTML=buildFill(ex,`vex-${i}`,i===exs.length-1,lessonIdx,'v');
+    else if(ex.type==='match') d.innerHTML=buildMatch(ex,`vex-${i}`,i===exs.length-1,lessonIdx,'v');
+    else if(ex.type==='order') d.innerHTML=buildOrder(ex,`vex-${i}`,i===exs.length-1,lessonIdx,'v');
+    area.appendChild(d);
+    if(ex.type==='match') initMatchLogic(`vex-${i}`,ex);
+    if(ex.type==='order') initOrderLogic(`vex-${i}`,ex,i===exs.length-1,lessonIdx,'v');
+  });
+}
+
+// =========== GRAM ===========
+function initGram(gram,lessonIdx){
+  const area=document.getElementById('gram-area');
+  if(!area)return;
+
+  // 1. Build the explanation box HTML
+  let explainHTML=`<div class="ex-box" style="margin-bottom:14px">
+    <div class="gram-tag">${gram.tag}</div>
+    <div class="gram-rule" style="margin-bottom:10px">${gram.rule}</div>`;
+  gram.examples.forEach(e=>{
+    explainHTML+=`<div class="g-ex">${e.de}<span class="tr">→ ${e.tr}</span></div>`;
+  });
+  if(gram.table){
+    explainHTML+=`<div style="overflow-x:auto;margin-top:12px"><table class="gtable">
+      <tr>${gram.table.heads.map(h=>`<th>${h}</th>`).join('')}</tr>
+      ${gram.table.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}
+    </table></div>`;
+  }
+  if(gram.tip) explainHTML+=`<div class="fb info" style="display:block;margin-top:12px">${gram.tip}</div>`;
+  explainHTML+=`</div>`;
+
+  // 2. Set explanation into the area first
+  area.innerHTML=explainHTML;
+
+  // 3. Append each exercise node separately
+  gram.exs.forEach((ex,i)=>{
+    const id=`gex-${i}`;
+    const isLast=i===gram.exs.length-1;
+    const tmp=document.createElement('div');
+    tmp.className='ex-box'; tmp.id=id;
+    if(ex.type==='mcq')        tmp.innerHTML=buildMCQ(ex,id,isLast,lessonIdx,'g');
+    else if(ex.type==='fill')  tmp.innerHTML=buildFill(ex,id,isLast,lessonIdx,'g');
+    else if(ex.type==='fill2') tmp.innerHTML=buildFill2(ex,id,isLast,lessonIdx);
+    else if(ex.type==='order') tmp.innerHTML=buildOrder(ex,id,isLast,lessonIdx,'g');
+    else if(ex.type==='translate') tmp.innerHTML=buildTranslate(ex,id,isLast,lessonIdx);
+    area.appendChild(tmp);
+    if(ex.type==='order') initOrderLogic(id,ex,isLast,lessonIdx,'g');
+    if(ex.type==='match') initMatchLogic(id,ex);
+  });
+}
+
+// =========== BUILDERS ===========
+function buildMCQ(ex,id,isLast,lessonIdx,prefix){
+  const opts=ex.opts.map((o,i)=>`<button class="opt" onclick="checkMCQ(this,${i===(ex.ok)?1:0},'${id}','${id}-fb',${ex.xp},${isLast?1:0},${lessonIdx},'${prefix}')">${o}</button>`).join('');
+  return `<div class="ex-hdr"><div class="ex-type">Ejercicio</div><div class="ex-xp">+${ex.xp} XP</div></div>
+    <div class="ex-q">${ex.q}</div><div class="opts">${opts}</div>
+    <div id="${id}-fb" class="fb"></div>
+    <div id="${id}-next" style="display:none">${nextBtn(isLast,lessonIdx,prefix)}</div>`;
+}
+
+function buildFill(ex,id,isLast,lessonIdx,prefix){
+  let s='<div class="fill-wrap">';
+  ex.sentence.forEach((part,pi)=>{
+    if(typeof part==='string') s+=`<span>${part}</span>`;
+    else s+=`<input class="fi" id="${id}-fi-${pi}" placeholder="?" style="width:${part.w}px" data-ans="${part.blank}">`;
+  });
+  s+='</div>';
+  return `<div class="ex-hdr"><div class="ex-type">Rellena el hueco</div><div class="ex-xp">+${ex.xp} XP</div></div>
+    <div class="ex-q">${ex.q}</div>${s}
+    <button class="btn btn-p" onclick="checkFill('${id}',${ex.xp},${isLast?1:0},${lessonIdx},'${prefix}',\`${ex.fb_ok}\`,\`${ex.fb_ko}\`)">Comprobar</button>
+    <div id="${id}-fb" class="fb"></div>
+    <div id="${id}-next" style="display:none">${nextBtn(isLast,lessonIdx,prefix)}</div>`;
+}
+
+function buildFill2(ex,id,isLast,lessonIdx){
+  let s='';
+  ex.items.forEach((item,i)=>{
+    s+=`<div class="fill-wrap" style="margin-bottom:8px"><span>${item.pre}</span>
+      <input class="fi" id="${id}-fi2-${i}" placeholder="?" style="width:${item.w}px" data-ans="${item.blank}">
+      <span>${item.suf}</span></div>
+      <div style="font-size:11px;color:var(--t2);margin-bottom:8px;margin-left:4px">💡 ${item.hint}</div>`;
+  });
+  return `<div class="ex-hdr"><div class="ex-type">Rellena los huecos</div><div class="ex-xp">+${ex.xp} XP</div></div>
+    <div class="ex-q">${ex.q}</div>${s}
+    <button class="btn btn-p" onclick="checkFill2B('${id}',${ex.items.length},${ex.xp},${isLast?1:0},${lessonIdx},\`${ex.fb_ok}\`,\`${ex.fb_ko}\`)">Comprobar</button>
+    <div id="${id}-fb" class="fb"></div>
+    <div id="${id}-next" style="display:none">${nextBtn(isLast,lessonIdx,'g')}</div>`;
+}
+
+function buildMatch(ex,id,isLast,lessonIdx,prefix){
+  const left=ex.pairs.map(p=>p[0]);
+  const right=[...ex.pairs.map(p=>p[1])].sort(()=>Math.random()-.5);
+  const lc=left.map((w,i)=>`<div class="match-chip" id="${id}-L${i}" onclick="matchClick('${id}','L',${i},'${w}')">${w}</div>`).join('');
+  const rc=right.map((w,i)=>`<div class="match-chip" id="${id}-R${i}" onclick="matchClick('${id}','R',${i},'${w}')">${w}</div>`).join('');
+  return `<div class="ex-hdr"><div class="ex-type">Une las palabras</div><div class="ex-xp">+${ex.xp} XP</div></div>
+    <div class="ex-q">${ex.q}</div>
+    <div class="match-cols"><div class="match-col" id="${id}-LC">${lc}</div><div class="match-col" id="${id}-RC">${rc}</div></div>
+    <div id="${id}-fb" class="fb"></div>
+    <div id="${id}-next" style="display:none">${nextBtn(isLast,lessonIdx,prefix)}</div>`;
+}
+
+function buildOrder(ex,id,isLast,lessonIdx,prefix){
+  return `<div class="ex-hdr"><div class="ex-type">Ordena la frase</div><div class="ex-xp">+${ex.xp} XP</div></div>
+    <div class="ex-q">${ex.q}</div>
+    <div style="font-size:12px;color:var(--t2);margin-bottom:6px">Toca para añadir • toca en tu frase para quitar</div>
+    <div class="chips-pool" id="${id}-pool"></div>
+    <div style="font-size:12px;font-weight:800;color:var(--purple);margin:6px 0 3px">Tu frase:</div>
+    <div class="chips-ans" id="${id}-ans"></div>
+    <button class="btn btn-p" onclick="checkOrder('${id}','${ex.correct.replace(/'/g,"\\'")}',${ex.xp},${isLast?1:0},${lessonIdx},'${prefix}',\`${ex.fb_ok}\`,\`${ex.fb_ko}\`)">Comprobar</button>
+    <div id="${id}-fb" class="fb"></div>
+    <div id="${id}-next" style="display:none">${nextBtn(isLast,lessonIdx,prefix)}</div>`;
+}
+
+function buildTranslate(ex,id,isLast,lessonIdx){
+  let rows='';
+  ex.sentences.forEach((s,i)=>{
+    rows+=`<div class="tr-item">
+      <div class="tr-es">${s.es}</div>
+      <textarea class="tr-in" id="${id}-ta-${i}" placeholder="Schreib auf Deutsch…" data-de="${s.de.replace(/"/g,'&quot;')}"></textarea>
+      <div class="tr-fb" id="${id}-tfb-${i}"></div>
+    </div>`;
+  });
+  return `<div class="ex-hdr"><div class="ex-type">🖊 Traducción ES → DE</div><div class="ex-xp">+${ex.xp} XP</div></div>
+    <div class="ex-q">Traduce las siguientes frases al alemán:</div>
+    <div class="tr-hint">💡 ${ex.hint}</div>
+    ${rows}
+    <button class="btn btn-p" id="${id}-check-btn" onclick="checkTranslate('${id}',${ex.sentences.length},${ex.xp},${isLast?1:0},${lessonIdx})">Corregir con IA ✨</button>
+    <div id="${id}-fb" class="fb"></div>
+    <div id="${id}-next" style="display:none">${nextBtn(isLast,lessonIdx,'g')}</div>`;
+}
+
+async function checkTranslate(id,n,xpVal,isLast,lessonIdx){
+  const btn=document.getElementById(id+'-check-btn');
+  btn.disabled=true; btn.textContent='Corrigiendo… ⏳';
+  const L=LESSONS[lessonIdx];
+  let allAnswers='', hasContent=false;
+  for(let i=0;i<n;i++){
+    const ta=document.getElementById(`${id}-ta-${i}`);
+    if(ta&&ta.value.trim()) hasContent=true;
+    allAnswers+=`${i+1}. ES: "${document.querySelector(`#${id}-ta-${i}`)?document.querySelector(`#${id}-ta-${i-i}`+`-ta-${i}`)?.dataset.de||'':''}" | Alumno: "${ta?ta.value.trim():''}"\n`;
+  }
+  // Build prompt pairs
+  const pairs=[];
+  for(let i=0;i<n;i++){
+    const ta=document.getElementById(`${id}-ta-${i}`);
+    const correct=ta?ta.dataset.de:'';
+    pairs.push({es:L.gram.exs.find(e=>e.type==='translate')?.sentences[i]?.es||'',
+                de:correct, student:ta?ta.value.trim():''});
+  }
+  if(!hasContent){
+    btn.disabled=false; btn.textContent='Corregir con IA ✨';
+    const fb=document.getElementById(id+'-fb');
+    fb.style.display='block'; fb.className='fb ko';
+    fb.textContent='❌ Escribe al menos una frase antes de corregir.'; return;
+  }
+  try{
+    const prompt=pairs.map((p,i)=>
+      `Frase ${i+1}:\n  Español: "${p.es}"\n  Respuesta correcta: "${p.de}"\n  Alumno escribió: "${p.student||'(en blanco)'}"`
+    ).join('\n\n');
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:900,
+        system:`Eres un profesor de alemán A2. Corrige las traducciones del alumno. Para cada frase:
+- Si está correcta o casi correcta: escribe ✅ y un breve elogio.
+- Si hay errores: escribe ❌, explica el error en español en 1 línea y muestra la versión correcta.
+- Responde SOLO con las correcciones numeradas (1. 2. 3. …), sin introducción ni conclusión.
+- Sé breve y directo. Máximo 2 líneas por frase.`,
+        messages:[{role:'user',content:prompt}]})
+    });
+    if(!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data=await resp.json();
+    const reply=data.content?.map(b=>b.text||'').join('')||'';
+    // Show per-item feedback by parsing numbered lines
+    const lines=reply.split('\n').filter(l=>l.trim());
+    let itemIdx=-1, itemFb={};
+    lines.forEach(line=>{
+      const m=line.match(/^(\d+)\./);
+      if(m){itemIdx=parseInt(m[1])-1; itemFb[itemIdx]=(itemFb[itemIdx]||'')+line+' ';}
+      else if(itemIdx>=0) itemFb[itemIdx]+=' '+line;
+    });
+    let allOk=true;
+    for(let i=0;i<n;i++){
+      const ta=document.getElementById(`${id}-ta-${i}`);
+      const fb=document.getElementById(`${id}-tfb-${i}`);
+      const text=(itemFb[i]||'').trim();
+      if(fb){
+        fb.style.display='block';
+        const isOk=text.startsWith('✅');
+        fb.className='tr-fb '+(isOk?'ok':'ko');
+        fb.textContent=text||'Sin corrección.';
+        if(!isOk){allOk=false; if(ta)ta.classList.add('ko');}
+        else if(ta){ta.classList.add('ok');}
+      }
+    }
+    const mainFb=document.getElementById(id+'-fb');
+    mainFb.style.display='block';
+    mainFb.className='fb '+(allOk?'ok':'ai');
+    mainFb.textContent=allOk?'🎉 ¡Todas las frases correctas!':'📝 Revisa las correcciones arriba. ¡Sigue practicando!';
+    addXP(allOk?xpVal:Math.round(xpVal/2));
+    document.getElementById(id+'-next').style.display='block';
+  }catch(e){
+    const fb=document.getElementById(id+'-fb');
+    fb.style.display='block'; fb.className='fb ko';
+    // fallback: simple string compare
+    let score=0;
+    for(let i=0;i<n;i++){
+      const ta=document.getElementById(`${id}-ta-${i}`);
+      const correct=ta?ta.dataset.de.trim().toLowerCase():'';
+      const student=ta?ta.value.trim().toLowerCase():'';
+      const tfb=document.getElementById(`${id}-tfb-${i}`);
+      const ok=student===correct||student.replace(/[.,!?]/g,'')===correct.replace(/[.,!?]/g,'');
+      if(tfb){
+        tfb.style.display='block';
+        tfb.className='tr-fb '+(ok?'ok':'ko');
+        tfb.textContent=ok?'✅ ¡Correcto!':`❌ Correcto: ${ta.dataset.de}`;
+        if(ta) ta.classList.add(ok?'ok':'ko');
+        if(ok) score++;
+      }
+    }
+    fb.textContent=`Sin conexión — corrección automática: ${score}/${n} frases correctas.`;
+    addXP(Math.round(xpVal*score/n));
+    document.getElementById(id+'-next').style.display='block';
+  }
+  btn.disabled=false; btn.textContent='Corregir con IA ✨';
+}
+
+function nextBtn(isLast,lessonIdx,prefix){
+  if(isLast && prefix==='g') return `<button class="btn btn-p" onclick="finishLesson(${lessonIdx})">🎉 ¡Completar lección!</button>`;
+  if(isLast && prefix==='v') return `<button class="btn btn-p" onclick="showStep(2)">Ir a Gramática →</button>`;
+  return '';
+}
+
+// =========== CHECK FUNCTIONS ===========
+function checkMCQ(btn,correct,id,fbId,xpVal,isLast,lessonIdx,prefix){
+  btn.closest('.opts').querySelectorAll('.opt').forEach(o=>o.disabled=true);
+  btn.classList.add(correct?'ok':'ko');
+  if(!correct) btn.closest('.opts').querySelectorAll('.opt').forEach(o=>{
+    // find the correct one by re-evaluating
+  });
+  const fb=document.getElementById(fbId);
+  const ex=findEx(id,lessonIdx,prefix);
+  fb.style.display='block'; fb.className='fb '+(correct?'ok':'ko');
+  fb.textContent=correct?(ex?ex.fb_ok:'✅ ¡Correcto!'):(ex?ex.fb_ko:'❌ Incorrecto.');
+  if(correct){addXP(xpVal);}
+  document.getElementById(id+'-next').style.display='block';
+}
+
+function checkFill(id,xpVal,isLast,lessonIdx,prefix,fb_ok,fb_ko){
+  let allOk=true;
+  document.querySelectorAll(`#${id} input.fi`).forEach(inp=>{
+    const ok=inp.value.trim().toLowerCase()===inp.dataset.ans.toLowerCase();
+    inp.classList.add(ok?'ok':'ko'); if(!ok)allOk=false;
+  });
+  const fb=document.getElementById(id+'-fb');
+  fb.style.display='block'; fb.className='fb '+(allOk?'ok':'ko');
+  fb.innerHTML=allOk?fb_ok:fb_ko;
+  if(allOk) addXP(xpVal);
+  document.getElementById(id+'-next').style.display='block';
+}
+
+function checkFill2B(id,n,xpVal,isLast,lessonIdx,fb_ok,fb_ko){
+  let allOk=true;
+  for(let i=0;i<n;i++){
+    const inp=document.getElementById(`${id}-fi2-${i}`);
+    if(!inp)continue;
+    const ok=inp.value.trim().toLowerCase()===inp.dataset.ans.toLowerCase();
+    inp.classList.add(ok?'ok':'ko'); if(!ok)allOk=false;
+  }
+  const fb=document.getElementById(id+'-fb');
+  fb.style.display='block'; fb.className='fb '+(allOk?'ok':'ko');
+  fb.innerHTML=allOk?fb_ok:fb_ko;
+  if(allOk) addXP(xpVal);
+  document.getElementById(id+'-next').style.display='block';
+}
+
+// MATCH
+const matchState={};
+function initMatchLogic(id,ex){}
+
+function matchClick(id,side,idx,word){
+  const el=document.getElementById(`${id}-${side}${idx}`);
+  if(el.classList.contains('matched'))return;
+  const key=id;
+  if(!matchState[key]) matchState[key]={sel:null,done:0,total:0,pairs:null};
+  const st=matchState[key];
+  // find pairs for this ex
+  if(!st.pairs){
+    const L=LESSONS[currentLesson];
+    const allExs=[...L.vocExs,...L.gram.exs];
+    allExs.forEach(e=>{if(e.type==='match') st.pairs=e.pairs; st.total=e.pairs?e.pairs.length:0;});
+  }
+  if(!st.sel){
+    st.sel={side,idx,word,el};
+    el.classList.add('sel');
+  } else {
+    if(st.sel.side===side){el.classList.add('sel'); st.sel.el.classList.remove('sel'); st.sel={side,idx,word,el}; return;}
+    // check pair
+    const a=st.sel, b={side,idx,word,el};
+    let left=side==='L'?b:a, right=side==='R'?b:a;
+    const correct=st.pairs&&st.pairs.find(p=>p[0]===left.word&&p[1]===right.word);
+    if(correct){
+      left.el.classList.remove('sel'); right.el.classList.remove('sel');
+      left.el.classList.add('matched'); right.el.classList.add('matched');
+      st.done++; addXP(3);
+      if(st.done===st.total){
+        const fb=document.getElementById(id+'-fb');
+        fb.style.display='block'; fb.className='fb ok'; fb.textContent='✅ ¡Todas correctas!';
+        document.getElementById(id+'-next').style.display='block';
+        addXP(5);
+      }
+    } else {
+      left.el.classList.add('wrong-flash'); right.el.classList.add('wrong-flash');
+      setTimeout(()=>{left.el.classList.remove('sel','wrong-flash'); right.el.classList.remove('sel','wrong-flash');},600);
+    }
+    st.sel=null;
+  }
+}
+
+// ORDER
+const orderState={};
+function initOrderLogic(id,ex,isLast,lessonIdx,prefix){
+  const shuffled=[...ex.words].sort(()=>Math.random()-.5);
+  orderState[id]={pool:[...shuffled],ans:[],words:ex.words};
+  renderOrder(id);
+}
+function renderOrder(id){
+  const st=orderState[id];
+  if(!st)return;
+  const pool=document.getElementById(id+'-pool');
+  const ans=document.getElementById(id+'-ans');
+  if(!pool||!ans)return;
+  pool.innerHTML=''; ans.innerHTML='';
+  st.pool.forEach((w,i)=>{
+    const c=document.createElement('span');
+    c.className='chip'+(st.poolUsed&&st.poolUsed[i]?' gone':'');
+    c.textContent=w;
+    c.onclick=()=>{if(!(st.poolUsed&&st.poolUsed[i])){if(!st.poolUsed)st.poolUsed={};st.poolUsed[i]=true;st.ans.push(w);renderOrder(id);}};
+    pool.appendChild(c);
+  });
+  st.ans.forEach((w,i)=>{
+    const c=document.createElement('span');
+    c.className='chip placed'; c.textContent=w;
+    c.onclick=()=>{
+      // find first poolUsed index with this word and un-use it
+      for(let k=0;k<st.pool.length;k++){
+        if(st.pool[k]===w&&st.poolUsed&&st.poolUsed[k]){delete st.poolUsed[k];break;}
+      }
+      st.ans.splice(i,1); renderOrder(id);
+    };
+    ans.appendChild(c);
+  });
+}
+function checkOrder(id,correct,xpVal,isLast,lessonIdx,prefix,fb_ok,fb_ko){
+  const st=orderState[id];
+  if(!st)return;
+  const result=st.ans.join(' ');
+  const fb=document.getElementById(id+'-fb');
+  fb.style.display='block';
+  if(result===correct){
+    fb.className='fb ok'; fb.innerHTML=fb_ok; addXP(xpVal);
+  } else {
+    fb.className='fb ko'; fb.innerHTML=fb_ko;
+  }
+  document.getElementById(id+'-next').style.display='block';
+}
+
+// =========== FINISH LESSON ===========
+function finishLesson(idx){
+  lessonDone[idx]=true;
+  lessDone++;
+  document.getElementById('s-les').textContent=lessDone;
+  addXP(50);
+  if(idx+1<LESSONS.length){
+    unlocked[idx+1]=true;
+  }
+  alert(`🎉 ¡${LESSONS[idx].title} completada! +50 XP${idx+1<LESSONS.length?' · Lección '+(idx+2)+' desbloqueada!':' · ¡Eres increíble!'}`);
+  backToList();
+}
+
+function findEx(id,lessonIdx,prefix){}
+
+// =========== SPEECH ===========
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('Tu navegador no soporta voz. Prueba Chrome o Safari.');return;}
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='de-DE'; u.rate=0.85;
+  const v=window.speechSynthesis.getVoices().find(v=>v.lang.startsWith('de'));
+  if(v) u.voice=v;
+  if(btn){btn.classList.add('sp'); u.onend=()=>btn.classList.remove('sp'); u.onerror=()=>btn.classList.remove('sp');}
+  window.speechSynthesis.speak(u);
+}
+if('speechSynthesis' in window){window.speechSynthesis.getVoices();window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices();}
+
+// =========== CHAT ===========
+const SCENARIOS_TEXT={
+  casa:'¡Hablemos de tu casa! 🏠\n\nFrage: Wie ist deine Wohnung? Wie viele Zimmer hat sie? Beschreib sie auf Deutsch!\n(Usa el vocabulario de la Lección 1: Wohnzimmer, Küche, Schlafzimmer…)',
+  arzt:'¡Al médico! 🏥\n\nDu bist beim Arzt. Was fehlt dir?\n(Di qué te duele en alemán. Ej: "Mein Kopf tut weh. Ich habe Fieber.")',
+  einkaufen:'¡Al supermercado! 🛒\n\nWas kaufst du heute? Mach eine Einkaufsliste!\n(Escribe en alemán qué compras hoy.)',
+  arbeit:'¡Cuéntame de tu trabajo! 💼\n\nWas ist dein Beruf? Wo arbeitest du? Was willst du beruflich machen?\n(Usa: Ich bin …, Ich arbeite in …, Ich will …)',
+  libre:'¡Corrección libre! ✏️\n\nSchreib auf Deutsch — was du willst! Ich korrigiere alles.\n(Escribe cualquier frase en alemán y te corrijo.)'
+};
+function setScenario(s){
+  document.getElementById('sce-btns').style.display='none';
+  addChatMsg(SCENARIOS_TEXT[s],'ai');
+}
+function addChatMsg(text,who){
+  const area=document.getElementById('chat-area');
+  const d=document.createElement('div');
+  d.className='msg msg-'+who; d.textContent=text;
+  area.appendChild(d); area.scrollTop=area.scrollHeight; return d;
+}
+async function sendMsg(){
+  const inp=document.getElementById('chat-in'),btn=document.getElementById('send-btn');
+  const errEl=document.getElementById('chat-err');
+  const txt=inp.value.trim(); if(!txt)return;
+  addChatMsg(txt,'user'); inp.value=''; btn.disabled=true; errEl.style.display='none';
+  const ld=addChatMsg('⏳','ai');
+  try{
+    const msgs=[];
+    document.querySelectorAll('#chat-area .msg:not([data-loading])').forEach(m=>{
+      if(m===ld)return;
+      msgs.push({role:m.classList.contains('msg-user')?'user':'assistant',content:m.textContent});
+    });
+    msgs.push({role:'user',content:txt});
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
+        system:`Eres un profesor de alemán A2 usando el libro Menschen A2 (Hueber). Eres amigable, paciente y motivador.
+REGLAS:
+- Explica SIEMPRE en español. Alemán solo para ejemplos y correcciones.
+- Cuando el alumno escribe en alemán: (1) destaca lo positivo, (2) corrige errores explicando la regla gramatical brevemente, (3) muestra versión correcta en negrita, (4) propón una frase para que continúe.
+- Temas A2: Dativ, Akkusativ, Perfekt, Modalverben (wollen/sollen/müssen/dürfen), Konjunktiv II básico, Possessivartikel, Wortstellung.
+- Máximo 5 líneas por respuesta. Termina SIEMPRE con una pregunta o frase para practicar.`,
+        messages:msgs})
+    });
+    if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${resp.status}`);}
+    const data=await resp.json();
+    ld.textContent=data.content?.map(b=>b.text||'').join('')||'Sin respuesta.';
+  }catch(e){
+    ld.remove(); errEl.style.display='block';
+    errEl.textContent='⚠️ '+(e.message.includes('fetch')?'Sin conexión a internet.':e.message);
+  }
+  btn.disabled=false; document.getElementById('chat-area').scrollTop=9999;
+}
+
+// =========== INIT ===========
+renderLessonList();
+</script>
+</body>
+</html>
